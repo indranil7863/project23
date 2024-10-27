@@ -4,10 +4,10 @@ import '../style/Home.css';
 
 const Home = () =>{
     return (
-        <div className="container">
-            <div className="box">
-            <h1 className="heading">Quiz Application</h1>
-            <ol className="list">
+        <div className="container user-selection">
+            <div className="box user-selection">
+            <h1 className="heading user-selection">Quiz Application</h1>
+            <ol className="list user-selection">
                 <li>You will asked 10 questions one after another</li>
                 <li>10 points is awarded for the correct answer.</li>
                 <li>Each question has three options. You can choose only one option</li>
