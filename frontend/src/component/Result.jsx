@@ -4,12 +4,11 @@ import '../style/Result.css'
 import { Link } from "react-router-dom";
 const Result = ({score, totalQuestions, selectedAnswers}) =>{
     
-    console.log("selected answer is:" , selectedAnswers);
-    console.log("selected answer: ", Object.keys(selectedAnswers).length);
+
     const totalAttempt = Object.keys(selectedAnswers).length;
     const point = parseInt(score) * 5;
     const totalpoints = parseInt(totalQuestions) *5;
-    console.log(point);
+
     const accuracy = Math.floor((point/totalpoints)*100);
     return (
         <div className="main-div">

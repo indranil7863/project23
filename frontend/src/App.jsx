@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./component/Home";
 import Question from "./component/Questions";
 import Result from "./component/Result";
+import { ShowResult } from "./component/ShowResult";
 
 function App() {
   const [name, changeName] = useState(" ");
@@ -20,6 +21,7 @@ function App() {
         />
         <Route path={'/questions'} element={<Question/>} />
         <Route path={'/result'} element={<Result/>} />
+        <Route path={'/show-result'} element={<ShowResult/>} />
       </Routes>
    
     </>
