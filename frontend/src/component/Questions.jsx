@@ -1,18 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import data from '../quiz-data/Data1.js'
 import { useState } from "react";
 import '../style/Questions.css'
 import Result from "./Result.jsx";
-import { resultStore } from "../store/resultStore.js";
+// import { resultStore } from "../store/resultStore.js";
+
+import axios from "axios";
 
 const Question = () =>{
     const [currqindex, setCurrqIndex] = useState(0);
     const [selectedAnswers, setSelectedAnswers] = useState({});
-    const {saveResult, name} = resultStore();
+    // const {saveResult} = resultStore();
     const [score, setScore] = useState(null);
     const [showResults, setshowResults] = useState(false);
-    // const [attempt, setAttempt] = useState(0);
-    
+     
+
     const handleOptionSelect = (option) => {
         setSelectedAnswers({
           ...selectedAnswers,
@@ -39,53 +41,41 @@ const Question = () =>{
     const handlePrev = () =>{
         setCurrqIndex((prevIndex) => prevIndex -1)
     }
-        //   totalQuestion: Number,
-    //   totalScore: Number,
-    //   wrongAns: Number,
-    //   accuracy: String,
-    // const handleSubmit = async () =>{
-    //     // directed to result page
-    //     alert("Quiz submitted")
-    //     // setAttempt(selectedAnswers.length);
-    //     const correctAnswercount = calculateScore();
-    //     setScore(correctAnswercount);
-    //     setshowResults(true);
-
-    //     try{
-    //         const totalQuestion = data.length;
-    //         const totalScore = correctAnswercount * 5;
-    //         const wrongAns = Object.keys(selectedAnswers).length;
-    //         const totalpoints = parseInt(totalQuestion) *5;
-    //         const accuracy = Math.floor((totalScore/totalpoints)*100);
-            
-    //         // const name = "indranil"
-    //         await saveResult(name, totalQuestion, totalScore, wrongAns, accuracy);
-
-    //     }catch(error){
-    //         console.log(error);
-    //     }
         
-
-    // }
-
-    const handleSubmit = async () => {
-        alert("Quiz submitted");
+    const handleSubmit = async () =>{
+     
+        // directed to result page
+        alert("Quiz submitted")
+        // setAttempt(selectedAnswers.length);
         const correctAnswercount = calculateScore();
         setScore(correctAnswercount);
         setshowResults(true);
-    
-        try {
-            const totalQuestion = data.length;
-            const totalScore = correctAnswercount * 5;
-            const wrongAns = Object.keys(selectedAnswers).length;
-            const totalpoints = totalQuestion * 5; // Updated line
-            const accuracy = totalpoints > 0 ? Math.floor((totalScore / totalpoints) * 100) : 0; // Updated line
-    
-            await saveResult(name, totalQuestion, totalScore, wrongAns, accuracy);
-        } catch (error) {
-            console.log(error);
+         const totalQuestion = data.length;
+    const totalScore = correctAnswercount * 5;
+    const wrongAns = Object.keys(selectedAnswers).length;
+    const totalpoints = parseInt(totalQuestion) *5;
+    const accuracy = Math.floor((totalScore/totalpoints)*100);
+    const date = 23;
+    const name = "rohit";
+    const dataTosave = JSON.stringify({
+        name,
+        totalQuestion,
+        totalScore,
+        wrongAns,
+        totalpoints,
+        accuracy
+    })
+        try{
+            const response = await axios.post(`http://localhost:3000/api/save-data`, dataTosave, {headers: {'Content-Type': 'application/json'}});
+            console.log("Data saved: ", response.data.result.name);
+
+        }catch(error){
+            console.log("Error saving data:", error);
         }
-    };
+    
+    }
+
+   
 
     return (
         <div className="containers">
